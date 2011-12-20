@@ -68,7 +68,15 @@
     self.userHasTypedADecimal = NO;
 }
 
-//instance methods
+- (IBAction)variablePressed:(UIButton *)sender {
+    if (self.userIsInTheMiddleOfTypingADigit) [self enterPressed];
+    self.display.text = sender.currentTitle;
+    [self.brain pushVariable:sender.currentTitle];
+    [self appendHistory:sender.currentTitle];
+    self.userIsInTheMiddleOfTypingADigit = NO;
+    self.userHasTypedADecimal = NO;    
+}
+
 - (IBAction)operationPressed:(UIButton *)sender {    
     if (self.userIsInTheMiddleOfTypingADigit) [self enterPressed];
     
