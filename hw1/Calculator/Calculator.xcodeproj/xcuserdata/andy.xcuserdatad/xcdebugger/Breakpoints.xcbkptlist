@@ -9,12 +9,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Calculator/CalculatorViewController.h"
-         timestampString = "345014708.486532"
+         timestampString = "346138410.390942"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "18"
-         endingLineNumber = "18"
-         landmarkName = "history"
+         startingLineNumber = "20"
+         endingLineNumber = "20"
+         landmarkName = "equation"
          landmarkType = "19">
       </FileBreakpoint>
       <FileBreakpoint
@@ -35,11 +35,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Calculator/CalculatorBrain.m"
-         timestampString = "346133598.971437"
+         timestampString = "346181479.709643"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "116"
-         endingLineNumber = "116"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-performOperation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -49,11 +49,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Calculator/CalculatorBrain.m"
-         timestampString = "346061239.474139"
+         timestampString = "346181479.709643"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "58"
-         endingLineNumber = "58"
+         startingLineNumber = "76"
+         endingLineNumber = "76"
          landmarkName = "+popOperandOffStack:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -63,11 +63,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Calculator/CalculatorBrain.m"
-         timestampString = "346133598.971437"
+         timestampString = "346181479.709643"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "112"
+         endingLineNumber = "112"
          landmarkName = "+runProgram:usingVariableValues:"
          landmarkType = "5">
       </FileBreakpoint>

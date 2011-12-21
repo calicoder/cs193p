@@ -12,9 +12,11 @@
 @interface CalculatorViewController : UIViewController {
     UILabel *display;
     UILabel *history;
+    UILabel *equation;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *display;
 @property (nonatomic, retain) IBOutlet UILabel *history;
+@property (nonatomic, retain) IBOutlet UILabel *equation;
 
 @end 

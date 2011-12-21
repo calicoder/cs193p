@@ -22,7 +22,7 @@
  usingVariableValues:(NSDictionary *)values;
 + (NSSet *)variablesUsedInProgram:(id)program;
 
-//+ (NSString *)descriptionOfProgram:(id)program;
++ (NSString *)descriptionOfProgram:(id)program;
 
 
  @end

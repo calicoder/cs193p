@@ -10,11 +10,9 @@
 
 @interface CalculatorBrain() 
 @property (nonatomic, retain) NSMutableArray *programStack;
-
 @end
 
 @implementation CalculatorBrain
-
 @synthesize programStack = _programStack;
 
 - (NSMutableArray *)programStack 
@@ -34,7 +32,27 @@
 }
 
 + (BOOL)isOperation:(NSString *)operation {
-    NSSet *operations =  [NSSet setWithObjects: @"+", @"*", @"/", @"-", @"sin", @"cos", @"π", @"sqrt", nil];
+    NSSet *operations =  [NSSet setWithObjects: @"π", @"sin", @"cos", @"sqrt", @"+", @"*", @"/", @"-", nil];
+    return [operations containsObject:operation];
+}
+
++ (BOOL)isZeroOperation:(NSString *)operation {
+    NSSet *operations =  [NSSet setWithObjects: @"π", nil];
+    return [operations containsObject:operation];
+}
+
++ (BOOL)isSingleOperation:(NSString *)operation {
+    NSSet *operations =  [NSSet setWithObjects: @"sin", @"cos", @"sqrt", nil];
+    return [operations containsObject:operation];
+}
+
++ (BOOL)isDoubleOperation:(NSString *)operation {
+    NSSet *operations =  [NSSet setWithObjects: @"+", @"*", @"/", @"-", nil];
+    return [operations containsObject:operation];
+}
+
++ (BOOL)isVariable:(NSString *)operation {
+    NSSet *operations =  [NSSet setWithObjects: @"x", @"y", @"z", nil];
     return [operations containsObject:operation];
 }
 
@@ -85,14 +103,13 @@
 
 + (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues;
 {
-        [CalculatorBrain variablesUsedInProgram:program];
     id newProgram = [program mutableCopy];
     
     for (int i=0; i < [newProgram count]; i++) 
     {
         id operand = [newProgram objectAtIndex:i];        
         if([operand isKindOfClass:[NSString class]]) {
-            if(![CalculatorBrain isOperation:operand]) {
+            if(![self isOperation:operand]) {
                 [newProgram replaceObjectAtIndex:i withObject:[variableValues valueForKey:operand]];
             }    
         }
@@ -121,10 +138,39 @@
     return [self.programStack copy];
 }
 
++ (NSString *) descriptionOfTopOfStack:(id)program {
+    NSString *result = @"";
+    id topOfStack = [program lastObject];
+    if (topOfStack) {
+        [program removeLastObject];
+        
+        if ([topOfStack isKindOfClass:[NSNumber class]]) {
+            result = [result stringByAppendingString:[topOfStack stringValue]];
+        } 
+        else if ([topOfStack isKindOfClass:[NSString class]]) {
+            if ([self isVariable:topOfStack]) {
+                result = [[[result stringByAppendingString:[self descriptionOfTopOfStack:program]] stringByAppendingString:@","] stringByAppendingString:topOfStack];
+            } else if ([self isZeroOperation:topOfStack]) {
+                result = [[[result stringByAppendingString:[self descriptionOfTopOfStack:program]] stringByAppendingString:@","] stringByAppendingString:topOfStack];
+
+//                result = [result stringByAppendingString:topOfStack]; 
+            } else if ([self isSingleOperation:topOfStack]) {
+                result = [[[topOfStack stringByAppendingString:@"("] stringByAppendingString:[CalculatorBrain descriptionOfTopOfStack:program]] stringByAppendingString:@")"]; 
+            } else if ([self isDoubleOperation:topOfStack]) {
+                NSString *second = [self descriptionOfTopOfStack:program];
+                NSString *first = [self descriptionOfTopOfStack:program];
+                result = [[[[[result stringByAppendingString:@"("] stringByAppendingString:first] stringByAppendingString:topOfStack] stringByAppendingString:second] stringByAppendingString:@")"]; 
+            } 
+        }
+    }
+    return result;
+}
 
 + (NSString *)descriptionOfProgram:(id)program 
 {
-return @"";
+    NSMutableArray *stack = [program mutableCopy];
+    NSLog(@"this is stack: %@", stack);
+    return [self descriptionOfTopOfStack:stack];
 }
 
 + (NSSet *)variablesUsedInProgram:(id)program 
@@ -133,17 +179,12 @@ return @"";
     
     for (id operand in program) 
     {
-        NSLog(@"looking at operand %@", operand);
-
-        if ([operand isKindOfClass:[NSString class]] && ![CalculatorBrain isOperation:operand])
+        if ([operand isKindOfClass:[NSString class]] && ![self isOperation:operand])
         {
-            NSLog(@"added operand %@", operand);
-
             [variables addObject:operand];   
         }
     }
-    NSLog(@"variables set is %@", variables);
-    NSLog(@"variables count is %i", [variables count]);
+
     if ([variables count] == 0) {
         return nil;
     }

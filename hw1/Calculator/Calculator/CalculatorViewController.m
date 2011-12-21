@@ -20,6 +20,7 @@
 @implementation CalculatorViewController
 
 //public/private setters and getters
+@synthesize equation = _equation;
 @synthesize display = _display; 
 @synthesize history = _history;
 @synthesize userIsInTheMiddleOfTypingADigit = _userIsInTheMiddleOfTypingADigit;
@@ -85,6 +86,7 @@
     
     [self appendHistory:sender.currentTitle];
     self.display.text = resultString;
+    self.equation.text = [CalculatorBrain descriptionOfProgram:[self.brain program]];
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -100,4 +102,12 @@
     self.userIsInTheMiddleOfTypingADigit = YES;
 }
 
+- (void)dealloc {
+    [_equation release];
+    [super dealloc];
+}
+- (void)viewDidUnload {
+    [self setEquation:nil];
+    [super viewDidUnload];
+}
 @end
