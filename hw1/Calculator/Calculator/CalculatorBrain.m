@@ -85,20 +85,23 @@
 
 + (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues;
 {
-    for (int i=0; i < [program count]; i++) 
+        [CalculatorBrain variablesUsedInProgram:program];
+    id newProgram = [program mutableCopy];
+    
+    for (int i=0; i < [newProgram count]; i++) 
     {
-        id operand = [program objectAtIndex:i];        
+        id operand = [newProgram objectAtIndex:i];        
         if([operand isKindOfClass:[NSString class]]) {
             if(![CalculatorBrain isOperation:operand]) {
-                [program replaceObjectAtIndex:i withObject:[variableValues valueForKey:operand]];            
+                [newProgram replaceObjectAtIndex:i withObject:[variableValues valueForKey:operand]];
             }    
         }
     }
-    return [CalculatorBrain runProgram:program];
+    return [CalculatorBrain runProgram:newProgram];
 }
 
 + (double)runProgram:(id)program
-{
+{    
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
         stack = [program mutableCopy];
@@ -110,7 +113,7 @@
 {
     [self.programStack addObject:operation];
     return [CalculatorBrain runProgram:self.program
-                   usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:@"x", [NSNumber numberWithInt:0], @"y", @"0", @"z", @"0", nil]];
+                   usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], @"x", [NSNumber numberWithInt:0], @"y", [NSNumber numberWithInt:0], @"z", nil]];
 }
             
 - (id)program 
@@ -121,12 +124,32 @@
 
 + (NSString *)descriptionOfProgram:(id)program 
 {
-    //+, 5, 3
-    //pop off top of stack
-    //if operation
-    //  
-    //else number
-    //  
+return @"";
+}
+
++ (NSSet *)variablesUsedInProgram:(id)program 
+{
+    NSMutableArray *variables = [NSMutableArray arrayWithCapacity:0];
+    
+    for (id operand in program) 
+    {
+        NSLog(@"looking at operand %@", operand);
+
+        if ([operand isKindOfClass:[NSString class]] && ![CalculatorBrain isOperation:operand])
+        {
+            NSLog(@"added operand %@", operand);
+
+            [variables addObject:operand];   
+        }
+    }
+    NSLog(@"variables set is %@", variables);
+    NSLog(@"variables count is %i", [variables count]);
+    if ([variables count] == 0) {
+        return nil;
+    }
+    else {
+        return variables;
+    }
 }
 
 - (void)clearOperands {
