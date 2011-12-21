@@ -87,10 +87,11 @@
 {
     for (int i=0; i < [program count]; i++) 
     {
-        for (NSString *key in variableValues) {
-            if ([[program objectAtIndex:i] isEqualToString:key]) {
-                [program replaceObjectAtIndex:i withObject:[variableValues valueForKey:key]];
-            }
+        id operand = [program objectAtIndex:i];        
+        if([operand isKindOfClass:[NSString class]]) {
+            if(![CalculatorBrain isOperation:operand]) {
+                [program replaceObjectAtIndex:i withObject:[variableValues valueForKey:operand]];            
+            }    
         }
     }
     return [CalculatorBrain runProgram:program];
@@ -109,7 +110,7 @@
 {
     [self.programStack addObject:operation];
     return [CalculatorBrain runProgram:self.program
-                   usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:@"x", @"0", @"y", @"0", @"z", @"0", nil]];
+                   usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:@"x", [NSNumber numberWithInt:0], @"y", @"0", @"z", @"0", nil]];
 }
             
 - (id)program 
