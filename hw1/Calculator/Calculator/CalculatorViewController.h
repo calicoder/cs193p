@@ -13,10 +13,11 @@
     UILabel *display;
     UILabel *history;
     UILabel *equation;
+    UILabel *variables;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *display;
 @property (nonatomic, retain) IBOutlet UILabel *history;
 @property (nonatomic, retain) IBOutlet UILabel *equation;
-
+@property (nonatomic, retain) IBOutlet UILabel *variables;
 @end 

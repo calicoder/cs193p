@@ -14,6 +14,7 @@
 
 @implementation CalculatorBrain
 @synthesize programStack = _programStack;
+@synthesize variableValues = _variableValues;
 
 - (NSMutableArray *)programStack 
 {
@@ -105,13 +106,15 @@
 {
     id newProgram = [program mutableCopy];
     
-    for (int i=0; i < [newProgram count]; i++) 
-    {
-        id operand = [newProgram objectAtIndex:i];        
-        if([operand isKindOfClass:[NSString class]]) {
-            if(![self isOperation:operand]) {
-                [newProgram replaceObjectAtIndex:i withObject:[variableValues valueForKey:operand]];
-            }    
+    if (variableValues) {
+        for (int i=0; i < [newProgram count]; i++) 
+        {
+            id operand = [newProgram objectAtIndex:i];        
+            if([operand isKindOfClass:[NSString class]]) {
+                if(![self isOperation:operand]) {
+                    [newProgram replaceObjectAtIndex:i withObject:[variableValues valueForKey:operand]];
+                }    
+            }
         }
     }
     return [CalculatorBrain runProgram:newProgram];
@@ -130,7 +133,7 @@
 {
     [self.programStack addObject:operation];
     return [CalculatorBrain runProgram:self.program
-                   usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], @"x", [NSNumber numberWithInt:0], @"y", [NSNumber numberWithInt:0], @"z", nil]];
+                   usingVariableValues:self.variableValues];
 }
             
 - (id)program 
@@ -149,17 +152,15 @@
         } 
         else if ([topOfStack isKindOfClass:[NSString class]]) {
             if ([self isVariable:topOfStack]) {
-                result = [[[result stringByAppendingString:[self descriptionOfTopOfStack:program]] stringByAppendingString:@","] stringByAppendingString:topOfStack];
+                result = [result stringByAppendingString:topOfStack]; 
             } else if ([self isZeroOperation:topOfStack]) {
-                result = [[[result stringByAppendingString:[self descriptionOfTopOfStack:program]] stringByAppendingString:@","] stringByAppendingString:topOfStack];
-
-//                result = [result stringByAppendingString:topOfStack]; 
+                result = [result stringByAppendingString:topOfStack];
             } else if ([self isSingleOperation:topOfStack]) {
                 result = [[[topOfStack stringByAppendingString:@"("] stringByAppendingString:[CalculatorBrain descriptionOfTopOfStack:program]] stringByAppendingString:@")"]; 
             } else if ([self isDoubleOperation:topOfStack]) {
                 NSString *second = [self descriptionOfTopOfStack:program];
                 NSString *first = [self descriptionOfTopOfStack:program];
-                result = [[[[[result stringByAppendingString:@"("] stringByAppendingString:first] stringByAppendingString:topOfStack] stringByAppendingString:second] stringByAppendingString:@")"]; 
+                result = [[[[[result stringByAppendingString:@"("] stringByAppendingString:first] stringByAppendingString:topOfStack] stringByAppendingString:second] stringByAppendingString:@")"];
             } 
         }
     }
@@ -169,27 +170,29 @@
 + (NSString *)descriptionOfProgram:(id)program 
 {
     NSMutableArray *stack = [program mutableCopy];
-    NSLog(@"this is stack: %@", stack);
     return [self descriptionOfTopOfStack:stack];
 }
 
 + (NSSet *)variablesUsedInProgram:(id)program 
 {
+    NSLog(@"program is a %@", [program class]);
+    NSMutableArray *stack = [program mutableCopy];
     NSMutableArray *variables = [NSMutableArray arrayWithCapacity:0];
+    id operand;
     
-    for (id operand in program) 
-    {
-        if ([operand isKindOfClass:[NSString class]] && ![self isOperation:operand])
-        {
+    while ([stack count] > 0) {
+        operand = [stack lastObject];
+        [stack removeLastObject];
+        if ([operand isKindOfClass:[NSString class]] && ![self isOperation:operand]) {
             [variables addObject:operand];   
-        }
+        }        
     }
 
     if ([variables count] == 0) {
         return nil;
     }
     else {
-        return variables;
+        return [NSSet setWithArray:variables];
     }
 }
 
