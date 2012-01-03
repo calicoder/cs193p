@@ -12,12 +12,12 @@
 
 - (void)pushOperand: (double)operand;
 - (void)pushVariable: (NSString *)operand;
-- (double)performOperation: (NSString *)operation;
+- (void)performOperation: (NSString *)operation;
 - (void)clearOperands;
 
 @property (readonly) id program;
-@property NSDictionary *variableValues;
 
+- (void)popOperand;
 + (double)runProgram:(id)program;
 + (double)runProgram:(id)program
  usingVariableValues:(NSDictionary *)values;
