@@ -8,6 +8,7 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
+#import "GraphingViewController.h"
 
 //private properties interface
 @interface CalculatorViewController()
@@ -34,6 +35,10 @@
 - (CalculatorBrain *) brain {
   if (!_brain) _brain = [[CalculatorBrain alloc] init];
   return _brain;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [segue.destinationViewController doodFake];
 }
 
 //instance methods
@@ -111,6 +116,10 @@
   [self appendHistory:sender.currentTitle];
   self.userIsInTheMiddleOfTypingADigit = NO;
   self.userHasTypedADecimal = NO;    
+}
+
+- (IBAction)graphPressed {
+    [self performSegueWithIdentifier:@"ShowGraph" sender:self];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender {
