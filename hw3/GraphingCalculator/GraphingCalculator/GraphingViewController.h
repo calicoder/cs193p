@@ -10,6 +10,6 @@
 
 @interface GraphingViewController : UIViewController
 
-- (void)doodFake;
+@property (nonatomic, weak) CalculatorBrain *brain; 
 
 @end

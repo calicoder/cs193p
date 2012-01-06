@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class GraphingView;
+
+@protocol GraphingViewDataSource
+//- (double)yForX:(double)X;
+@end
+
 @interface GraphingView : UIView
 
-- (void)doodFake;
+@property (nonatomic) CGFloat scale;
+@property (nonatomic, weak) IBOutlet id <GraphingViewDataSource> dataSource;
 
 @end

@@ -20,7 +20,7 @@
 - (void)popOperand;
 + (double)runProgram:(id)program;
 + (double)runProgram:(id)program
- usingVariableValues:(NSDictionary *)values;
+    usingVariableValues:(NSDictionary *)values;
 + (NSSet *)variablesUsedInProgram:(id)program;
 + (NSString *)descriptionOfProgram:(id)program;
 

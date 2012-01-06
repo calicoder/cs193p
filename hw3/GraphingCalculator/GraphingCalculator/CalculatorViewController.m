@@ -38,7 +38,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [segue.destinationViewController doodFake];
+  [segue.destinationViewController setBrain:self.brain];   
 }
 
 //instance methods
@@ -144,10 +144,6 @@
     self.display.text = digit;
   }
   self.userIsInTheMiddleOfTypingADigit = YES;
-}
-
-- (IBAction)graph {
-
 }
 
 - (IBAction)testPressed:(UIButton *)sender {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7685F3A614B4E56500028715 /* GraphingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7685F3A514B4E56500028715 /* GraphingViewController.m */; };
 		7685F3A914B5184A00028715 /* GraphingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7685F3A814B5184A00028715 /* GraphingView.m */; };
+		A142377414B54302004279DE /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = A142377314B54302004279DE /* AxesDrawer.m */; };
 		A198504D14B3F60B00E3D888 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A198504C14B3F60B00E3D888 /* UIKit.framework */; };
 		A198504F14B3F60B00E3D888 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A198504E14B3F60B00E3D888 /* Foundation.framework */; };
 		A198505114B3F60B00E3D888 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A198505014B3F60B00E3D888 /* CoreGraphics.framework */; };
@@ -40,6 +41,8 @@
 		7685F3A514B4E56500028715 /* GraphingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphingViewController.m; sourceTree = "<group>"; };
 		7685F3A714B5184A00028715 /* GraphingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphingView.h; sourceTree = "<group>"; };
 		7685F3A814B5184A00028715 /* GraphingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphingView.m; sourceTree = "<group>"; };
+		A142377214B54302004279DE /* AxesDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
+		A142377314B54302004279DE /* AxesDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxesDrawer.m; sourceTree = "<group>"; };
 		A198504814B3F60B00E3D888 /* GraphingCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphingCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A198504C14B3F60B00E3D888 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A198504E14B3F60B00E3D888 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 				A198508614B3FBB100E3D888 /* CalculatorBrain.h */,
 				A198508714B3FBB100E3D888 /* CalculatorBrain.m */,
 				A198505B14B3F60B00E3D888 /* CalculatorAppDelegate.h */,
+				A142377214B54302004279DE /* AxesDrawer.h */,
+				A142377314B54302004279DE /* AxesDrawer.m */,
 				A198505C14B3F60B00E3D888 /* CalculatorAppDelegate.m */,
 				A198505E14B3F60B00E3D888 /* MainStoryboard.storyboard */,
 				7685F3A714B5184A00028715 /* GraphingView.h */,
@@ -278,6 +283,7 @@
 				A198508814B3FBB100E3D888 /* CalculatorBrain.m in Sources */,
 				7685F3A614B4E56500028715 /* GraphingViewController.m in Sources */,
 				7685F3A914B5184A00028715 /* GraphingView.m in Sources */,
+				A142377414B54302004279DE /* AxesDrawer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

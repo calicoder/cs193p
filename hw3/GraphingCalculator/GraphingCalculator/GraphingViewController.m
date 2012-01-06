@@ -6,12 +6,26 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "CalculatorBrain.h"
 #import "GraphingViewController.h"
+#import "GraphingView.h"
+
+@interface GraphingViewController() <GraphingViewDataSource>
+@property (nonatomic, weak) IBOutlet GraphingView *graphingView;
+@end
 
 @implementation GraphingViewController
 
-- (void)doodFake {
-    NSLog(@"DOOODO IM HERE");
+@synthesize brain = _brain;
+@synthesize graphingView = _graphingView;
+
+- (void) setGraphingView:(GraphingView *)graphingView {
+  _graphingView = graphingView;
+  self.graphingView.dataSource = self;
+}
+
+- (double)yForX:(double)X {
+  return [CalculatorBrain runProgram:[self.brain program] usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:X], @"x", nil]];
 }
 
 @end

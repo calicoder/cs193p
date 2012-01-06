@@ -162,7 +162,7 @@
   }
   return result;
 }
-
+  
 + (NSString *)descriptionOfProgram:(id)program {
   NSMutableArray *stack = [program mutableCopy];
   return [self descriptionOfTopOfStack:stack];
