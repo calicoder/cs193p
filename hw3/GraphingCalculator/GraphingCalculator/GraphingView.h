@@ -11,7 +11,7 @@
 @class GraphingView;
 
 @protocol GraphingViewDataSource
-//- (double)yForX:(double)X;
+- (double)yForX:(double)X;
 @end
 
 @interface GraphingView : UIView

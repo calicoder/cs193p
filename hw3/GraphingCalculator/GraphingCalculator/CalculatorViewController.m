@@ -38,7 +38,10 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  [segue.destinationViewController setBrain:self.brain];   
+  if ([segue.identifier isEqualToString:@"ShowGraph"]) {
+    GraphingViewController *graphingViewController = (GraphingViewController *)[segue destinationViewController];
+    graphingViewController.brain = self.brain;
+  }
 }
 
 //instance methods
@@ -116,10 +119,6 @@
   [self appendHistory:sender.currentTitle];
   self.userIsInTheMiddleOfTypingADigit = NO;
   self.userHasTypedADecimal = NO;    
-}
-
-- (IBAction)graphPressed {
-    [self performSegueWithIdentifier:@"ShowGraph" sender:self];
 }
 
 - (IBAction)operationPressed:(UIButton *)sender {

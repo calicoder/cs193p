@@ -25,6 +25,11 @@
   }
 }
 
+- (void)viewDidLoad
+{
+  NSLog(@"VIEW DID LOAD");
+}
+
 - (void)setScale:(CGFloat)scale
 {
   if (scale != _scale) {
@@ -85,27 +90,17 @@
   [AxesDrawer drawAxesInRect:rect originAtPoint:midPoint scale:size];
   
   double upperXBound = 100.0;  
-  for (double i = 0.0; i < upperXBound; i++) {
-  
-    [self yForX:i];
-//    
-//    NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"x", nil];
-//    double result = [CalculatorBrain runProgram:[brain program] usingVariableValues:values];
-//    NSLog(@"got here %f", result);
+  for (double i = 0.0; i < upperXBound; i++) {  
+    NSLog(@"i is %f", i);
+    NSLog(@"y for i is %f", [self.dataSource yForX:i]);
   }
 
-  
-  
   CGContextBeginPath(context);
   CGContextSetLineWidth(context, 2.0);
   [[UIColor blueColor] setStroke];
   CGContextMoveToPoint(context, midPoint.x, midPoint.y);
   CGContextAddLineToPoint(context, 1, 1);
   CGContextStrokePath(context);
-  
-  
-
-
 }
 
 @end
