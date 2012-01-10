@@ -69,6 +69,27 @@
   return self;
 }
 
+- (void)pinch:(UIPinchGestureRecognizer *)recognizer {
+  if (recognizer.state == UIGestureRecognizerStateChanged || recognizer.state == UIGestureRecognizerStateEnded) {
+    self.scale *= recognizer.scale;
+    recognizer.scale = 1.0;
+  }
+}
+
+- (void)pan:(UIPanGestureRecognizer *)recognizer {
+  
+  if (recognizer.state == UIGestureRecognizerStateChanged || recognizer.state == UIGestureRecognizerStateEnded) {
+    CGPoint translation = [recognizer translationInView:self];
+    self.origin = CGPointMake(self.origin.x + translation.x, self.origin.y + translation.y);
+  }
+}
+
+- (void)tripleTap:(UITapGestureRecognizer *)recognizer {
+  if(recognizer.state == UIGestureRecognizerStateChanged || recognizer.state == UIGestureRecognizerStateEnded) {
+    self.origin = [recognizer locationInView:self];
+  }
+}
+
 - (double)cartesianXFromViewX:(double)viewX {
   double half_width = self.bounds.size.width / 2;
   double xOffset = self.origin.x - half_width;
@@ -95,12 +116,12 @@
   for (double x = 0.0; x < width; x++) {
     double cartesianX = [self cartesianXFromViewX:x];
 
-    NSLog(@"x is %f", x);
-    NSLog(@"--y is %f",  [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
-    NSLog(@"--because viewX is %f", x);
-    NSLog(@"--because cartesianXFromViewX is %f", [self cartesianXFromViewX:x]);
-    NSLog(@"--because self.dataSource is %f",  [self.dataSource yForX:[self cartesianXFromViewX:x]]);
-    NSLog(@"--because viewYFromCartesianY is %f", [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
+//    NSLog(@"x is %f", x);
+//    NSLog(@"--y is %f",  [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
+//    NSLog(@"--because viewX is %f", x);
+//    NSLog(@"--because cartesianXFromViewX is %f", [self cartesianXFromViewX:x]);
+//    NSLog(@"--because self.dataSource is %f",  [self.dataSource yForX:[self cartesianXFromViewX:x]]);
+//    NSLog(@"--because viewYFromCartesianY is %f", [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
     
     CGContextAddLineToPoint(context, x, [self viewYFromCartesianY:[self.dataSource yForX:cartesianX]]);
   }

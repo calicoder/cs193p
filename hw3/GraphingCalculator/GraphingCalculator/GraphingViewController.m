@@ -24,6 +24,19 @@
   _graphingView = graphingView;
   self.graphingView.dataSource = self;
   self.equation.text = [CalculatorBrain descriptionOfProgram:[self.brain program]];
+  
+  //pinch
+  UIPinchGestureRecognizer *pinchgr = [[UIPinchGestureRecognizer alloc] initWithTarget:graphingView action:@selector(pinch:)];
+  [graphingView addGestureRecognizer:pinchgr];
+  
+  //pan
+  UIPanGestureRecognizer *pangr = [[UIPanGestureRecognizer alloc] initWithTarget:graphingView action:@selector(pan:)];
+  [graphingView addGestureRecognizer:pangr];
+  
+  //triple tap
+  UITapGestureRecognizer *tapgr = [[UITapGestureRecognizer alloc] initWithTarget:graphingView action:@selector(tripleTap:)];
+  tapgr.numberOfTapsRequired = 3;
+  [graphingView addGestureRecognizer:tapgr];
 }
 
 - (double)yForX:(double)X {

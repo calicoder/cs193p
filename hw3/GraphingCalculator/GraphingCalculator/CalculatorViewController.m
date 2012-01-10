@@ -41,6 +41,8 @@
   if ([segue.identifier isEqualToString:@"ShowGraph"]) {
     GraphingViewController *graphingViewController = (GraphingViewController *)[segue destinationViewController];
     graphingViewController.brain = self.brain;
+    
+    
   }
 }
 
