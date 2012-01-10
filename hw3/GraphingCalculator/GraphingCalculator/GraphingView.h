@@ -17,6 +17,7 @@
 @interface GraphingView : UIView
 
 @property (nonatomic) CGFloat scale;
+@property (nonatomic) CGPoint origin;
 @property (nonatomic, weak) IBOutlet id <GraphingViewDataSource> dataSource;
 
 @end

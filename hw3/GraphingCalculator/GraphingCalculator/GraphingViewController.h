@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GraphingViewController : UIViewController
+@interface GraphingViewController : UIViewController {
+  UILabel *equation;
+}
 
 @property (nonatomic, weak) CalculatorBrain *brain; 
+@property (retain, nonatomic) IBOutlet UILabel *equation;
 
 @end

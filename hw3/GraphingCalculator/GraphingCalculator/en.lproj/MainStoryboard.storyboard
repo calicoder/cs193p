@@ -432,6 +432,15 @@
                             <view contentMode="scaleToFill" id="0Fv-pE-ZS3" customClass="GraphingView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="Or4-Cu-a7n">
+                                        <rect key="frame" x="20" y="375" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -439,7 +448,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="K2a-7I-ZUc"/>
                     <connections>
-                        <outlet property="view" destination="0Fv-pE-ZS3" id="eBi-E6-Jvy"/>
+                        <outlet property="equation" destination="Or4-Cu-a7n" id="gJT-Vh-uNO"/>
+                        <outlet property="graphingView" destination="0Fv-pE-ZS3" id="EjC-uf-fxJ"/>
                     </connections>
                 </viewController>
             </objects>

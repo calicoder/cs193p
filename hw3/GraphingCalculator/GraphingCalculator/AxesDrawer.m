@@ -131,7 +131,9 @@
 
 + (void)drawAxesInRect:(CGRect)bounds originAtPoint:(CGPoint)axisOrigin scale:(CGFloat)pointsPerUnit
 {
-	CGContextRef context = UIGraphicsGetCurrentContext();
+  
+  NSLog(@"pointsPerUnit %f", pointsPerUnit);
+  CGContextRef context = UIGraphicsGetCurrentContext();
 
 	UIGraphicsPushContext(context);
 

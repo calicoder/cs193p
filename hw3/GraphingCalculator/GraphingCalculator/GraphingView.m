@@ -13,8 +13,25 @@
 
 @synthesize dataSource = _dataSource;
 @synthesize scale = _scale;
+@synthesize origin = _origin;
 
-#define DEFAULT_SCALE 0.90
+#define DEFAULT_SCALE 10.0
+
+- (CGPoint)origin {
+  if (!(_origin.x && _origin.y)) {
+    return CGPointMake(self.bounds.origin.x + self.bounds.size.width/2, self.bounds.origin.y + self.bounds.size.height/2);
+  }
+  else {
+    return _origin;
+  }
+}
+
+- (void)setOrigin:(CGPoint)origin {
+  if (origin.x != _origin.x && origin.y != _origin.y) {
+    _origin = origin;
+  } 
+  [self setNeedsDisplay];
+}
 
 - (CGFloat)scale
 {
@@ -25,35 +42,12 @@
   }
 }
 
-- (void)viewDidLoad
-{
-  NSLog(@"VIEW DID LOAD");
-}
-
 - (void)setScale:(CGFloat)scale
 {
   if (scale != _scale) {
     _scale = scale;
     [self setNeedsDisplay]; // any time our scale changes, call for redraw
   }
-}
-
-- (void)pinch:(UIPinchGestureRecognizer *)gesture
-{
-  if ((gesture.state == UIGestureRecognizerStateChanged) ||
-      (gesture.state == UIGestureRecognizerStateEnded)) {
-    self.scale *= gesture.scale; // adjust our scale
-    gesture.scale = 1;           // reset gestures scale to 1 (so future changes are incremental, not cumulative)
-  }
-}
-
-- (void)drawCircleAtPoint:(CGPoint)p withRadius:(CGFloat)radius inContext:(CGContextRef)context
-{
-  UIGraphicsPushContext(context);
-  CGContextBeginPath(context);
-  CGContextAddArc(context, p.x, p.y, radius, 0, 2*M_PI, YES); // 360 degree (0 to 2pi) arc
-  CGContextStrokePath(context);
-  UIGraphicsPopContext();
 }
 
 - (void)setup
@@ -75,32 +69,43 @@
   return self;
 }
 
+- (double)cartesianXFromViewX:(double)viewX {
+  double half_width = self.bounds.size.width / 2;
+  double xOffset = self.origin.x - half_width;
+  return (viewX - half_width - xOffset)/self.scale;  
+}
+
+- (double)viewYFromCartesianY:(double)cartesianY {
+  double half_height = self.bounds.size.height / 2;  
+  double yOffset = self.origin.y - half_height;
+  return half_height + yOffset - cartesianY*self.scale;
+}
+
 - (void)drawRect:(CGRect)rect {
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGPoint midPoint; // center of our bounds in our coordinate system
-  midPoint.x = self.bounds.origin.x + self.bounds.size.width/2;
-  midPoint.y = self.bounds.origin.y + self.bounds.size.height/2;
-
-  CGFloat size = self.bounds.size.width;  
-  if (self.bounds.size.height > self.bounds.size.width) {
-    size = self.bounds.size.height;
-  } 
-  size *=size * self.scale;
-
-  [AxesDrawer drawAxesInRect:rect originAtPoint:midPoint scale:size];
-  
-  double upperXBound = 100.0;  
-  for (double i = 0.0; i < upperXBound; i++) {  
-    NSLog(@"i is %f", i);
-    NSLog(@"y for i is %f", [self.dataSource yForX:i]);
-  }
+  [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
 
   CGContextBeginPath(context);
-  CGContextSetLineWidth(context, 2.0);
   [[UIColor blueColor] setStroke];
-  CGContextMoveToPoint(context, midPoint.x, midPoint.y);
-  CGContextAddLineToPoint(context, 1, 1);
+  CGContextSetLineWidth(context, 2.0);
+  double width = self.bounds.size.width * self.contentScaleFactor;  
+  double half_width = width/2;  
+  
+  CGContextMoveToPoint(context, 0, [self.dataSource yForX:-half_width]);  
+  for (double x = 0.0; x < width; x++) {
+    double cartesianX = [self cartesianXFromViewX:x];
+
+    NSLog(@"x is %f", x);
+    NSLog(@"--y is %f",  [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
+    NSLog(@"--because viewX is %f", x);
+    NSLog(@"--because cartesianXFromViewX is %f", [self cartesianXFromViewX:x]);
+    NSLog(@"--because self.dataSource is %f",  [self.dataSource yForX:[self cartesianXFromViewX:x]]);
+    NSLog(@"--because viewYFromCartesianY is %f", [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
+    
+    CGContextAddLineToPoint(context, x, [self viewYFromCartesianY:[self.dataSource yForX:cartesianX]]);
+  }
   CGContextStrokePath(context);
 }
+
 
 @end
