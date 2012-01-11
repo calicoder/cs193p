@@ -41,10 +41,12 @@
   if ([segue.identifier isEqualToString:@"ShowGraph"]) {
     GraphingViewController *graphingViewController = (GraphingViewController *)[segue destinationViewController];
     graphingViewController.brain = self.brain;
-    
-    
   }
 }
+
+//- (NSArray *)toolbarItems {
+////  return [NSArray arrayWithObjects [UIBarButtonItem], y, z, nil;
+//}
 
 //instance methods
 - (void)appendHistory:(NSString *)newHistory {
@@ -157,6 +159,12 @@
   }
   self.display.text = [NSString stringWithFormat:@"%g", [CalculatorBrain runProgram:[self.brain program] usingVariableValues:self.testVariableValues]];
   [self printVariables];
+}
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+  return YES;
 }
 
 @end

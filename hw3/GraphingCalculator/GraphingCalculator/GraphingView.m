@@ -81,6 +81,7 @@
   if (recognizer.state == UIGestureRecognizerStateChanged || recognizer.state == UIGestureRecognizerStateEnded) {
     CGPoint translation = [recognizer translationInView:self];
     self.origin = CGPointMake(self.origin.x + translation.x, self.origin.y + translation.y);
+    [recognizer setTranslation:CGPointZero inView:self];
   }
 }
 
@@ -114,15 +115,7 @@
   
   CGContextMoveToPoint(context, 0, [self.dataSource yForX:-half_width]);  
   for (double x = 0.0; x < width; x++) {
-    double cartesianX = [self cartesianXFromViewX:x];
-
-//    NSLog(@"x is %f", x);
-//    NSLog(@"--y is %f",  [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
-//    NSLog(@"--because viewX is %f", x);
-//    NSLog(@"--because cartesianXFromViewX is %f", [self cartesianXFromViewX:x]);
-//    NSLog(@"--because self.dataSource is %f",  [self.dataSource yForX:[self cartesianXFromViewX:x]]);
-//    NSLog(@"--because viewYFromCartesianY is %f", [self viewYFromCartesianY:[self.dataSource yForX:[self cartesianXFromViewX:x]]]);
-    
+    double cartesianX = [self cartesianXFromViewX:x];    
     CGContextAddLineToPoint(context, x, [self viewYFromCartesianY:[self.dataSource yForX:cartesianX]]);
   }
   CGContextStrokePath(context);
