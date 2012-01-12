@@ -29,7 +29,13 @@
 - (void)setOrigin:(CGPoint)origin {
   if (origin.x != _origin.x && origin.y != _origin.y) {
     _origin = origin;
-  } 
+  }
+  
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setFloat:origin.x forKey:@"origin.x"];
+  [defaults setFloat:origin.x forKey:@"origin.y"];
+  [defaults synchronize];
+  
   [self setNeedsDisplay];
 }
 
@@ -46,6 +52,9 @@
 {
   if (scale != _scale) {
     _scale = scale;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setFloat:scale forKey:@"scale"];
+    [defaults synchronize];
     [self setNeedsDisplay]; // any time our scale changes, call for redraw
   }
 }
@@ -53,6 +62,10 @@
 - (void)setup
 {
   self.contentMode = UIViewContentModeRedraw; // if our bounds changes, redraw ourselves
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  _origin.x = [defaults floatForKey:@"origin.x"];
+  _origin.y = [defaults floatForKey:@"origin.y"];
+  _scale = [defaults floatForKey:@"scale"];
 }
 
 - (void)awakeFromNib
@@ -113,7 +126,7 @@
   double width = self.bounds.size.width * self.contentScaleFactor;  
   double half_width = width/2;  
   
-  CGContextMoveToPoint(context, 0, [self.dataSource yForX:-half_width]);  
+  CGContextMoveToPoint(context, 0, [self viewYFromCartesianY:[self.dataSource yForX:-half_width]]);  
   for (double x = 0.0; x < width; x++) {
     double cartesianX = [self cartesianXFromViewX:x];    
     CGContextAddLineToPoint(context, x, [self viewYFromCartesianY:[self.dataSource yForX:cartesianX]]);

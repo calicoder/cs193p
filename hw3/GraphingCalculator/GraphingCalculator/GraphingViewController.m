@@ -18,18 +18,30 @@
 
 @synthesize brain = _brain;
 @synthesize equation = _equation;
+@synthesize toolbar = _toolbar;
 @synthesize graphingView = _graphingView;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
+- (void) setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
+
+  if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+    NSMutableArray *items = [self.toolbar.items mutableCopy];
+    if(_splitViewBarButtonItem) [items removeObject:_splitViewBarButtonItem];
+    if (splitViewBarButtonItem) [items insertObject:splitViewBarButtonItem atIndex:0];
+    self.toolbar.items = items;
+    _splitViewBarButtonItem = splitViewBarButtonItem;    
+  }  
+}
+
 - (void) setBrain:(CalculatorBrain *)brain {
     _brain = brain;
-    [self.view setNeedsDisplay];
+  self.equation.text = [CalculatorBrain descriptionOfProgram:[self.brain program]];
+  [self.view setNeedsDisplay];
 }
 
 - (void) setGraphingView:(GraphingView *)graphingView {
   _graphingView = graphingView;
   self.graphingView.dataSource = self;
-  self.equation.text = [CalculatorBrain descriptionOfProgram:[self.brain program]];
   
   //pinch
   UIPinchGestureRecognizer *pinchgr = [[UIPinchGestureRecognizer alloc] initWithTarget:graphingView action:@selector(pinch:)];
@@ -53,5 +65,4 @@
 {
   return YES;
 }
-
 @end

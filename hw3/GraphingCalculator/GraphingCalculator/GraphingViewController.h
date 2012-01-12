@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SplitViewBarButtonItemPresenter.h"
 
-@interface GraphingViewController : UIViewController <SplitViewBarButtonItemPresenter> {
-  UILabel *equation;
-}
+@interface GraphingViewController : UIViewController <SplitViewBarButtonItemPresenter> 
 
 @property (nonatomic, weak) CalculatorBrain *brain; 
-@property (retain, nonatomic) IBOutlet UILabel *equation;
+@property (weak, nonatomic) IBOutlet UILabel *equation;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+
 
 @end

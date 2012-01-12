@@ -32,12 +32,12 @@
 @synthesize userHasTypedADecimal = _userHasTypedADecimal;
 @synthesize testVariableValues = _testVariableValues;
 
-- (GraphingViewController *) splitViewGraphingViewController {
-    id gvc = [self.splitViewController.viewControllers lastObject];
-    if (![gvc isKindOfClass:[GraphingViewController class]]) {
-        gvc = nil;
-    }
-    return gvc;
+- (id <SplitViewBarButtonItemPresenter>) splitViewBarButtonItemPresenter {
+  id detailedVC = [self.splitViewController.viewControllers lastObject];
+  if (![detailedVC conformsToProtocol:@protocol(SplitViewBarButtonItemPresenter)]) {
+    detailedVC = nil;
+  } 
+  return detailedVC;
 }
 
 - (void) awakeFromNib {
@@ -45,24 +45,26 @@
     self.splitViewController.delegate = self;
 }
 
+// <UISplitViewControllerDelegate> methods
 - (BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
-    return [self splitViewGraphingViewController] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
+  return [self splitViewBarButtonItemPresenter] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
 }
 
 - (void) splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
- 
+  barButtonItem.title = @"Calculator";
+  //tell the detailed view to put this button up
+  [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
 }
 
-//- (void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
-//
-//}
+- (void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+  //tell the detailed view to put this button away
+  [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
 
+}
 
 - (IBAction)graphPressed:(id)sender {
-    GraphingViewController *gvc = [self splitViewGraphingViewController];
-    if (gvc) {
-        gvc.brain = self.brain;
-    }
+  GraphingViewController *detailedVC = [self.splitViewController.viewControllers lastObject];  
+  detailedVC.brain = self.brain;
 }
 
 //setters and getters overrides
