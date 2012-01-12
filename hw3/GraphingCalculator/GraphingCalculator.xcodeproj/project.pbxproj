@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7667261C14BFA33B00DEDAC4 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7667261B14BFA33B00DEDAC4 /* FavoritesViewController.m */; };
 		7685F3A614B4E56500028715 /* GraphingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7685F3A514B4E56500028715 /* GraphingViewController.m */; };
 		7685F3A914B5184A00028715 /* GraphingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7685F3A814B5184A00028715 /* GraphingView.m */; };
 		A117EB6814BD207900BECA0F /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A117EB6714BD207900BECA0F /* iPad.storyboard */; };
@@ -39,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		766725B614BE201300DEDAC4 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
+		7667261A14BFA33B00DEDAC4 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		7667261B14BFA33B00DEDAC4 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		7685F3A414B4E56500028715 /* GraphingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphingViewController.h; sourceTree = "<group>"; };
 		7685F3A514B4E56500028715 /* GraphingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphingViewController.m; sourceTree = "<group>"; };
 		7685F3A714B5184A00028715 /* GraphingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphingView.h; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				A117EB6714BD207900BECA0F /* iPad.storyboard */,
+				7667261A14BFA33B00DEDAC4 /* FavoritesViewController.h */,
+				7667261B14BFA33B00DEDAC4 /* FavoritesViewController.m */,
 				A198508614B3FBB100E3D888 /* CalculatorBrain.h */,
 				A198508714B3FBB100E3D888 /* CalculatorBrain.m */,
 				A198505B14B3F60B00E3D888 /* CalculatorAppDelegate.h */,
@@ -290,6 +295,7 @@
 				7685F3A614B4E56500028715 /* GraphingViewController.m in Sources */,
 				7685F3A914B5184A00028715 /* GraphingView.m in Sources */,
 				A142377414B54302004279DE /* AxesDrawer.m in Sources */,
+				7667261C14BFA33B00DEDAC4 /* FavoritesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
