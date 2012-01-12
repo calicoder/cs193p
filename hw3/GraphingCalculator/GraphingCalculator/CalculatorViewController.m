@@ -9,6 +9,7 @@
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
 #import "GraphingViewController.h"
+#import "SplitViewBarButtonItemPresenter.h"
 
 //private properties interface
 @interface CalculatorViewController()
@@ -19,7 +20,7 @@
 @end
 
 //class
-@implementation CalculatorViewController
+@implementation CalculatorViewController 
 
 //public/private setters and getters
 @synthesize equation = _equation;
@@ -30,6 +31,39 @@
 @synthesize brain = _brain;
 @synthesize userHasTypedADecimal = _userHasTypedADecimal;
 @synthesize testVariableValues = _testVariableValues;
+
+- (GraphingViewController *) splitViewGraphingViewController {
+    id gvc = [self.splitViewController.viewControllers lastObject];
+    if (![gvc isKindOfClass:[GraphingViewController class]]) {
+        gvc = nil;
+    }
+    return gvc;
+}
+
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    self.splitViewController.delegate = self;
+}
+
+- (BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+    return [self splitViewGraphingViewController] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
+}
+
+- (void) splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
+ 
+}
+
+//- (void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+//
+//}
+
+
+- (IBAction)graphPressed:(id)sender {
+    GraphingViewController *gvc = [self splitViewGraphingViewController];
+    if (gvc) {
+        gvc.brain = self.brain;
+    }
+}
 
 //setters and getters overrides
 - (CalculatorBrain *) brain {
@@ -43,10 +77,6 @@
     graphingViewController.brain = self.brain;
   }
 }
-
-//- (NSArray *)toolbarItems {
-////  return [NSArray arrayWithObjects [UIBarButtonItem], y, z, nil;
-//}
 
 //instance methods
 - (void)appendHistory:(NSString *)newHistory {

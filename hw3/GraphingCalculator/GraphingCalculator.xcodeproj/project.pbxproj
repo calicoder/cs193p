@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		766725B614BE201300DEDAC4 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
 		7685F3A414B4E56500028715 /* GraphingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphingViewController.h; sourceTree = "<group>"; };
 		7685F3A514B4E56500028715 /* GraphingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphingViewController.m; sourceTree = "<group>"; };
 		7685F3A714B5184A00028715 /* GraphingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphingView.h; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 				7685F3A814B5184A00028715 /* GraphingView.m */,
 				A198506114B3F60B00E3D888 /* CalculatorViewController.h */,
 				A198506214B3F60B00E3D888 /* CalculatorViewController.m */,
+				766725B614BE201300DEDAC4 /* SplitViewBarButtonItemPresenter.h */,
 				A198505314B3F60B00E3D888 /* Supporting Files */,
 				7685F3A414B4E56500028715 /* GraphingViewController.h */,
 				7685F3A514B4E56500028715 /* GraphingViewController.m */,

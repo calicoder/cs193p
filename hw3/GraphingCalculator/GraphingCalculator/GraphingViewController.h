@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SplitViewBarButtonItemPresenter.h"
 
-@interface GraphingViewController : UIViewController {
+@interface GraphingViewController : UIViewController <SplitViewBarButtonItemPresenter> {
   UILabel *equation;
 }
 

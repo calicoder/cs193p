@@ -19,6 +19,12 @@
 @synthesize brain = _brain;
 @synthesize equation = _equation;
 @synthesize graphingView = _graphingView;
+@synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+
+- (void) setBrain:(CalculatorBrain *)brain {
+    _brain = brain;
+    [self.view setNeedsDisplay];
+}
 
 - (void) setGraphingView:(GraphingView *)graphingView {
   _graphingView = graphingView;
