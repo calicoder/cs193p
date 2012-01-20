@@ -35,7 +35,6 @@
   [defaults setFloat:origin.x forKey:@"origin.x"];
   [defaults setFloat:origin.x forKey:@"origin.y"];
   [defaults synchronize];
-  
   [self setNeedsDisplay];
 }
 
@@ -125,10 +124,9 @@
   CGContextSetLineWidth(context, 2.0);
   double width = self.bounds.size.width * self.contentScaleFactor;  
   double half_width = width/2;  
-  
   CGContextMoveToPoint(context, 0, [self viewYFromCartesianY:[self.dataSource yForX:-half_width]]);  
   for (double x = 0.0; x < width; x++) {
-    double cartesianX = [self cartesianXFromViewX:x];    
+    double cartesianX = [self cartesianXFromViewX:x];  
     CGContextAddLineToPoint(context, x, [self viewYFromCartesianY:[self.dataSource yForX:cartesianX]]);
   }
   CGContextStrokePath(context);

@@ -9,21 +9,17 @@
 #import "CalculatorBrain.h"
 #import "GraphingViewController.h"
 #import "GraphingView.h"
-
-@interface GraphingViewController() <GraphingViewDataSource>
-@property (nonatomic, weak) IBOutlet GraphingView *graphingView;
-@end
+#import "FavoritesViewController.h"
 
 @implementation GraphingViewController
 
-@synthesize brain = _brain;
+@synthesize program = _program;
 @synthesize equation = _equation;
 @synthesize toolbar = _toolbar;
 @synthesize graphingView = _graphingView;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
 - (void) setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem {
-
   if (_splitViewBarButtonItem != splitViewBarButtonItem) {
     NSMutableArray *items = [self.toolbar.items mutableCopy];
     if(_splitViewBarButtonItem) [items removeObject:_splitViewBarButtonItem];
@@ -33,9 +29,11 @@
   }  
 }
 
-- (void) setBrain:(CalculatorBrain *)brain {
-    _brain = brain;
-  self.equation.text = [CalculatorBrain descriptionOfProgram:[self.brain program]];
+- (void) setProgram:(NSArray *)program {
+  NSLog(@"set program called with program: %@",program);
+  _program = program;
+  self.equation.text = [CalculatorBrain descriptionOfProgram:self.program];
+  self.graphingView.dataSource = self;
   [self.view setNeedsDisplay];
 }
 
@@ -57,12 +55,35 @@
   [graphingView addGestureRecognizer:tapgr];
 }
 
+#define FAVORITES_KEY @"GraphingViewController.Favorites"
+
+- (IBAction)pressAddToFavorites:(id)sender {
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSMutableArray *favorites = [[defaults objectForKey:FAVORITES_KEY] mutableCopy];
+  if(!favorites) favorites = [NSMutableArray array];
+  if(self.program) [favorites addObject:self.program];
+  [defaults setObject:favorites forKey:FAVORITES_KEY];
+  [defaults synchronize]; 
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([[segue identifier] isEqualToString:@"ShowFavorites"]) {
+    [[segue destinationViewController] setPrograms:[[NSUserDefaults standardUserDefaults] objectForKey:FAVORITES_KEY]];
+    [[segue destinationViewController] setDelegate:self];
+  }
+}
+
+- (void)favoritesViewControllerDelegate:(FavoritesViewController *)sender choseProgram:(id)program {
+  self.program = program;
+}
+
 - (double)yForX:(double)X {
-  return [CalculatorBrain runProgram:[self.brain program] usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:X], @"x", nil]];
+  return [CalculatorBrain runProgram:self.program usingVariableValues:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:X], @"x", nil]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   return YES;
 }
+
 @end

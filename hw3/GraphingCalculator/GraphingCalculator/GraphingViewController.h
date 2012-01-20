@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SplitViewBarButtonItemPresenter.h"
+#import "FavoritesViewController.h"
+#import "GraphingView.h"
 
-@interface GraphingViewController : UIViewController <SplitViewBarButtonItemPresenter> 
+@interface GraphingViewController : UIViewController <GraphingViewDataSource,SplitViewBarButtonItemPresenter>   
 
-@property (nonatomic, weak) CalculatorBrain *brain; 
+@property (nonatomic, weak) IBOutlet GraphingView *graphingView;
+@property (nonatomic, strong) NSArray *program; 
 @property (weak, nonatomic) IBOutlet UILabel *equation;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-
 
 @end

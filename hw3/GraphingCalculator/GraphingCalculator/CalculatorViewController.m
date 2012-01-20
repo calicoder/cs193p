@@ -50,21 +50,22 @@
   return [self splitViewBarButtonItemPresenter] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
 }
 
+//about to hide master view
 - (void) splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
   barButtonItem.title = @"Calculator";
   //tell the detailed view to put this button up
   [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
 }
 
+//about to show master view
 - (void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
   //tell the detailed view to put this button away
   [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
-
 }
 
-- (IBAction)graphPressed:(id)sender {
+- (IBAction)graphPressed:(id)sender {  
   GraphingViewController *detailedVC = [self.splitViewController.viewControllers lastObject];  
-  detailedVC.brain = self.brain;
+  detailedVC.program = self.brain.program;
 }
 
 //setters and getters overrides
@@ -76,7 +77,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
   if ([segue.identifier isEqualToString:@"ShowGraph"]) {
     GraphingViewController *graphingViewController = (GraphingViewController *)[segue destinationViewController];
-    graphingViewController.brain = self.brain;
+    graphingViewController.program = [self.brain program];
   }
 }
 
@@ -173,7 +174,7 @@
   NSString *digit = sender.currentTitle;
   
   if(self.userIsInTheMiddleOfTypingADigit) {
-    self.display.text = [self.display.text stringByAppendingString:digit];
+    self.display.text = [ self.display.text stringByAppendingString:digit];
   }
   else {
     self.display.text = digit;
@@ -192,7 +193,6 @@
   self.display.text = [NSString stringWithFormat:@"%g", [CalculatorBrain runProgram:[self.brain program] usingVariableValues:self.testVariableValues]];
   [self printVariables];
 }
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

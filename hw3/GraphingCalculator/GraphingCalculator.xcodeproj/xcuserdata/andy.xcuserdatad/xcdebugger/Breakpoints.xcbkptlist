@@ -8,14 +8,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "GraphingCalculator/CalculatorViewController.h"
-         timestampString = "348039213.140205"
+         filePath = "GraphingCalculator/GraphingView.m"
+         timestampString = "348737203.387795"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "22"
-         endingLineNumber = "22"
-         landmarkName = "@interface CalculatorViewController"
-         landmarkType = "2">
+         startingLineNumber = "133"
+         endingLineNumber = "133"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
+   <ExceptionBreakpoints>
+      <ExceptionBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         scope = "0"
+         stopOnStyle = "0">
+      </ExceptionBreakpoint>
+   </ExceptionBreakpoints>
+>>>>>>> Stashed changes
 </Bucket>
