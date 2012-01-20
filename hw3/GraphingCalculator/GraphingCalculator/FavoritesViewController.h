@@ -2,7 +2,7 @@
 //  FavoritesViewController.h
 //  GraphingCalculator
 //
-//  Created by Andrew Shin on 1/19/12.
+//  Created by Andrew Shin on 1/12/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
