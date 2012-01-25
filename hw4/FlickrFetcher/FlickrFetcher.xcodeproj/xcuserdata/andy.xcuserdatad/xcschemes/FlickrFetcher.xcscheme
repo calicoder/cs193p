@@ -13,10 +13,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A16CDE3314C958B400BFFCA7"
-               BuildableName = "FlickrPop.app"
-               BlueprintName = "FlickrPop"
-               ReferencedContainer = "container:FlickrPop.xcodeproj">
+               BlueprintIdentifier = "A1B5B0E914CE15B700F04025"
+               BuildableName = "FlickrFetcher.app"
+               BlueprintName = "FlickrFetcher"
+               ReferencedContainer = "container:FlickrFetcher.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,24 +27,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A16CDE5714C958B400BFFCA7"
-               BuildableName = "FlickrPopTests.octest"
-               BlueprintName = "FlickrPopTests"
-               ReferencedContainer = "container:FlickrPop.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A16CDE3314C958B400BFFCA7"
-            BuildableName = "FlickrPop.app"
-            BlueprintName = "FlickrPop"
-            ReferencedContainer = "container:FlickrPop.xcodeproj">
+            BlueprintIdentifier = "A1B5B0E914CE15B700F04025"
+            BuildableName = "FlickrFetcher.app"
+            BlueprintName = "FlickrFetcher"
+            ReferencedContainer = "container:FlickrFetcher.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -59,10 +49,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A16CDE3314C958B400BFFCA7"
-            BuildableName = "FlickrPop.app"
-            BlueprintName = "FlickrPop"
-            ReferencedContainer = "container:FlickrPop.xcodeproj">
+            BlueprintIdentifier = "A1B5B0E914CE15B700F04025"
+            BuildableName = "FlickrFetcher.app"
+            BlueprintName = "FlickrFetcher"
+            ReferencedContainer = "container:FlickrFetcher.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,10 +67,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A16CDE3314C958B400BFFCA7"
-            BuildableName = "FlickrPop.app"
-            BlueprintName = "FlickrPop"
-            ReferencedContainer = "container:FlickrPop.xcodeproj">
+            BlueprintIdentifier = "A1B5B0E914CE15B700F04025"
+            BuildableName = "FlickrFetcher.app"
+            BlueprintName = "FlickrFetcher"
+            ReferencedContainer = "container:FlickrFetcher.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

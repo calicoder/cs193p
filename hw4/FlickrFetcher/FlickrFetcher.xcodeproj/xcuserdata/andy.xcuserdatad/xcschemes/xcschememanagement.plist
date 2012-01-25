@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>FlickrPop.xcscheme</key>
+		<key>FlickrFetcher.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A16CDE3314C958B400BFFCA7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A16CDE5714C958B400BFFCA7</key>
+		<key>A1B5B0E914CE15B700F04025</key>
 		<dict>
 			<key>primary</key>
 			<true/>

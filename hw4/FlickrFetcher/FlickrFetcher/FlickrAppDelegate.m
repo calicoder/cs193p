@@ -1,14 +1,14 @@
 //
-//  FlickrPopAppDelegate.m
-//  FlickrPop
+//  FlickrAppDelegate.m
+//  FlickrFetcher
 //
 //  Created by Andrew Shin on 1/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FlickrPopAppDelegate.h"
+#import "FlickrAppDelegate.h"
 
-@implementation FlickrPopAppDelegate
+@implementation FlickrAppDelegate
 
 @synthesize window = _window;
 

@@ -2,7 +2,7 @@
 //  main.m
 //  FlickrPop
 //
-//  Created by Andrew Shin on 1/11/12.
+//  Created by Andrew Shin on 1/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 

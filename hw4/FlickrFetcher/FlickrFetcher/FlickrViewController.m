@@ -1,14 +1,14 @@
 //
-//  FlickrPopViewController.m
-//  FlickrPop
+//  FlickrViewController.m
+//  FlickrFetcher
 //
 //  Created by Andrew Shin on 1/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FlickrPopViewController.h"
+#import "FlickrViewController.h"
 
-@implementation FlickrPopViewController
+@implementation FlickrViewController
 
 - (void)didReceiveMemoryWarning
 {

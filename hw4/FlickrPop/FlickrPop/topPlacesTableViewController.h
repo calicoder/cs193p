@@ -1,5 +1,5 @@
 //
-//  FlickrPopAppDelegate.h
+//  topPlacesTableViewController.h
 //  FlickrPop
 //
 //  Created by Andrew Shin on 1/20/12.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlickrPopAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface topPlacesTableViewController : UITableViewController
+@property (nonatomic, strong) NSArray *topPlaces;
 @end

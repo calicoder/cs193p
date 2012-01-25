@@ -1,5 +1,5 @@
 //
-//  FlickrPopAppDelegate.h
+//  RecentlyViewedTableViewController.h
 //  FlickrPop
 //
 //  Created by Andrew Shin on 1/20/12.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlickrPopAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface RecentlyViewedTableViewController : UITableViewController
 
 @end

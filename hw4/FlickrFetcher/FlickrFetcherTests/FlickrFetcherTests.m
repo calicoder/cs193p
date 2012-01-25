@@ -1,14 +1,14 @@
 //
-//  FlickrPopTests.m
-//  FlickrPopTests
+//  FlickrFetcherTests.m
+//  FlickrFetcherTests
 //
 //  Created by Andrew Shin on 1/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FlickrPopTests.h"
+#import "FlickrFetcherTests.h"
 
-@implementation FlickrPopTests
+@implementation FlickrFetcherTests
 
 - (void)setUp
 {
@@ -26,7 +26,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in FlickrPopTests");
+    STFail(@"Unit tests are not implemented yet in FlickrFetcherTests");
 }
 
 @end
