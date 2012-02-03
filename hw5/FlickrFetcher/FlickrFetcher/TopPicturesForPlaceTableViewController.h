@@ -10,7 +10,7 @@
 
 #define RECENT_PICTURES @"RecentPictures1"
 
-@interface TopPicturesForPlaceTableViewController : UITableViewController
+@interface TopPicturesForPlaceTableViewController : UITableViewController <UISplitViewControllerDelegate>
 @property (nonatomic, strong) NSDictionary *place;
 @property (nonatomic, strong) NSArray *topPictures;
 @end

@@ -9,15 +9,46 @@
 #import "TopPicturesForPlaceTableViewController.h"
 #import "FlickrFetcher.h"
 #import "FlickrImageViewController.h"
+#import "SplitViewBarButtonItemProtocol.h"
 
 @implementation TopPicturesForPlaceTableViewController 
 @synthesize place = _place;
 @synthesize topPictures = _topPictures;
 
+- (void)setTopPictures:(NSArray *)topPictures {
+  if (_topPictures != topPictures) {
+    _topPictures = topPictures;
+    [self.tableView reloadData];
+  }
+}
+
+//when you wake up from a storyboard, try to make this controller the split view delegate
+- (void)awakeFromNib {
+  [super awakeFromNib];
+  self.splitViewController.delegate = self;
+}
+
+- (id <SplitViewBarButtonItemProtocol>) splitViewBarButtonItemViewController {
+  id detailedVC = [self.splitViewController.viewControllers lastObject];
+  if (![detailedVC conformsToProtocol:@protocol(SplitViewBarButtonItemProtocol)]) {
+    detailedVC = nil;
+  } 
+  return detailedVC;
+}
+
 - (void) setPlace:(NSDictionary *)place {
-  _place = place;
-  self.topPictures = [FlickrFetcher photosInPlace:place maxResults:20];
-  self.title = [self.place valueForKey:@"_content"];
+  if(_place != place) {
+    _place = place;
+    dispatch_queue_t downloader = dispatch_queue_create("downloader", NULL);
+    dispatch_async(downloader, ^{
+      NSArray *pictures = [FlickrFetcher photosInPlace:place maxResults:50];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        self.topPictures = pictures;
+        self.title = [self.place valueForKey:@"_content"];
+      });
+    });
+    dispatch_release(downloader);
+  }
 }
 
 - (void)viewDidLoad
@@ -64,16 +95,11 @@
   [defaults synchronize];
 }
 
-- (FlickrImageViewController *)flickrImageViewController {
-  id detailedViewController = [self.splitViewController.viewControllers lastObject];
-  if (![detailedViewController isKindOfClass:[FlickrImageViewController class]]) {
-    detailedViewController = nil;
-  }
-  return  detailedViewController;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [self flickrImageViewController].photo = [self.topPictures objectAtIndex:indexPath.row];
+  NSDictionary *selectedPhoto = [self.topPictures objectAtIndex:indexPath.row];
+  FlickrImageViewController *detailViewController = [self.splitViewController.viewControllers objectAtIndex:1];
+  [self addPictureToFavorites:selectedPhoto];
+  detailViewController.photo = [self.topPictures objectAtIndex:indexPath.row];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

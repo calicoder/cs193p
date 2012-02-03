@@ -14,7 +14,7 @@
 @implementation TopPlacesTableViewController  
 @synthesize topPlaces = _topPlaces;
 
-- (id <SplitViewBarButtonItemProtocol>) splitViewBarButtonItemProtocol {
+- (id <SplitViewBarButtonItemProtocol>) splitViewBarButtonItemViewController {
   id detailedVC = [self.splitViewController.viewControllers lastObject];
   if (![detailedVC conformsToProtocol:@protocol(SplitViewBarButtonItemProtocol)]) {
     detailedVC = nil;
@@ -28,27 +28,41 @@
   self.splitViewController.delegate = self;
 }
 
+- (void) setTopPlaces:(NSArray *)topPlaces {
+  if (_topPlaces != topPlaces) {
+    _topPlaces = topPlaces;
+    [self.tableView reloadData];
+  }
+}
+
 - (void)viewDidLoad
 {
-  self.topPlaces = [FlickrFetcher topPlaces];
-  self.title = @"Top Places";
+  dispatch_queue_t downloader = dispatch_queue_create("downloader", NULL);
+  dispatch_async(downloader, ^{      
+    NSArray *places = [FlickrFetcher topPlaces];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self.topPlaces = places;
+      self.title = @"Top Places";
+    });
+  });
+  dispatch_release(downloader);
   [super viewDidLoad];
 }
 
 //should the master view controller be hidden?
 - (BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
-  return [self splitViewBarButtonItemProtocol] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
+  return [self splitViewBarButtonItemViewController] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
 }
 
 //master view controller has been hidden. what should the barButtonItem do?
 - (void) splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
   barButtonItem.title = self.title;
-  [self splitViewBarButtonItemProtocol].splitViewBarButtonItem = barButtonItem;
+  [self splitViewBarButtonItemViewController].splitViewBarButtonItem = barButtonItem;
 }
 
 //master view controller is unhidden.  
 - (void) splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
-  [self splitViewBarButtonItemProtocol].splitViewBarButtonItem = nil;
+  [self splitViewBarButtonItemViewController].splitViewBarButtonItem = nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
