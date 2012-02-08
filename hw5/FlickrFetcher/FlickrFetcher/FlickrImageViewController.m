@@ -65,8 +65,10 @@
   
   dispatch_queue_t downloadQueue = dispatch_queue_create("imageDownloader", NULL);
   dispatch_async(downloadQueue, ^{
-  NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
-  UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];  
+    NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];  
+    //save image
+    
     dispatch_async(dispatch_get_main_queue(), ^{
       [spinner stopAnimating];
       self.imageView.image = image;
