@@ -37,10 +37,15 @@
 
 - (void)viewDidLoad
 {
+  UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+  [spinner startAnimating];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+  
   dispatch_queue_t downloader = dispatch_queue_create("downloader", NULL);
   dispatch_async(downloader, ^{      
     NSArray *places = [FlickrFetcher topPlaces];
     dispatch_async(dispatch_get_main_queue(), ^{
+      [spinner stopAnimating];
       self.topPlaces = places;
       self.title = @"Top Places";
     });

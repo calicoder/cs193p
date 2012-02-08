@@ -18,7 +18,6 @@
 @implementation FlickrImageViewController 
 @synthesize scrollView = _scrollView;
 @synthesize imageView = _imageView;
-@synthesize activityIndicator = _activityIndicator;
 @synthesize photo = _photo;
 @synthesize toolbar = _toolbar;
 @synthesize imageTitle = _imageTitle;
@@ -58,11 +57,18 @@
 }
 
 - (void) getAndSetImage {
+  UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+  [spinner startAnimating];  
+  NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+  [toolbarItems addObject:[[UIBarButtonItem alloc]initWithCustomView:spinner]];
+  self.toolbar.items = toolbarItems;
+  
   dispatch_queue_t downloadQueue = dispatch_queue_create("imageDownloader", NULL);
   dispatch_async(downloadQueue, ^{
   NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
   UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];  
     dispatch_async(dispatch_get_main_queue(), ^{
+      [spinner stopAnimating];
       self.imageView.image = image;
       [self setInitialZoom];
     });
@@ -71,7 +77,6 @@
 }
 
 - (void) setPhoto:(NSDictionary *)photo {
-  [self.activityIndicator startAnimating];
   if(_photo !=photo) {
   _photo = photo;
   self.title = [photo valueForKey:@"title"];
@@ -98,7 +103,6 @@
   [self setImageView:nil];
   [self setScrollView:nil];
   [self setToolbar:nil];
-  [self setActivityIndicator:nil];
   [super viewDidUnload];
 }
 @end

@@ -13,7 +13,6 @@
   UILabel *imageTitle;
 }
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSDictionary *photo;
 @property (weak, nonatomic) IBOutlet UILabel *imageTitle;
 @end

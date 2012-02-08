@@ -39,10 +39,16 @@
 - (void) setPlace:(NSDictionary *)place {
   if(_place != place) {
     _place = place;
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    
     dispatch_queue_t downloader = dispatch_queue_create("downloader", NULL);
     dispatch_async(downloader, ^{
       NSArray *pictures = [FlickrFetcher photosInPlace:place maxResults:50];
       dispatch_async(dispatch_get_main_queue(), ^{
+        [spinner stopAnimating];
         self.topPictures = pictures;
         self.title = [self.place valueForKey:@"_content"];
       });
