@@ -55,12 +55,32 @@
             </objects>
             <point key="canvasLocation" x="3480" y="1686"/>
         </scene>
+        <scene sceneID="gVh-Xd-ZSk">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bma-dy-xZy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="OuM-OB-NI6" customClass="MapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="I6f-mW-cxB">
+                        <rect key="frame" x="0.0" y="64" width="320" height="744"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="v20-XG-JEL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="744"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="aGx-6q-aO5"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="4806" y="1359"/>
+        </scene>
         <scene sceneID="lr7-Y6-hID">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tPH-KC-3tQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Wzw-CH-Fnn" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ahr-j3-cDY">
-                        <rect key="frame" x="0.0" y="64" width="320" height="788"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="744"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -98,7 +118,15 @@
                             <outlet property="delegate" destination="Wzw-CH-Fnn" id="SC1-pU-KqP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="9sz-fC-Irv"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="9sz-fC-Irv">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="P5o-VT-jWH">
+                            <connections>
+                                <segue destination="OuM-OB-NI6" kind="push" id="Kre-ds-gDY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="3865" y="1686"/>
@@ -108,11 +136,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yO-IM-9os" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="LIv-i7-w1y" customClass="TopPicturesForPlaceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9ye-S4-rFY">
-                        <rect key="frame" x="0.0" y="64" width="320" height="788"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="744"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Eem-05-pMR" detailTextLabel="fNa-e8-vzT" style="IBUITableViewCellStyleSubtitle" id="op0-rr-NBC">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Eem-05-pMR" style="IBUITableViewCellStyleDefault" id="op0-rr-NBC">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -120,17 +148,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Eem-05-pMR">
-                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
+                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fNa-e8-vzT">
-                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
@@ -143,7 +164,13 @@
                             <outlet property="delegate" destination="LIv-i7-w1y" id="Jfc-2H-B04"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="d8T-rO-TRq"/>
+                    <navigationItem key="navigationItem" id="d8T-rO-TRq">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="RT6-1b-3Cq">
+                            <connections>
+                                <segue destination="OuM-OB-NI6" kind="push" id="OJm-22-q56"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="4255" y="1686"/>
@@ -166,12 +193,14 @@
         <class className="FlickrImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrImageViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="imageTitle" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
+        </class>
+        <class className="MapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
         </class>
         <class className="TopPicturesForPlaceTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPicturesForPlaceTableViewController.h"/>
@@ -185,4 +214,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Kre-ds-gDY"/>
+    </inferredMetricsTieBreakers>
 </document>

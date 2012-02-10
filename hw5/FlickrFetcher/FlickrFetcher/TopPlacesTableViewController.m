@@ -37,6 +37,8 @@
 
 - (void)viewDidLoad
 {
+  [super viewDidLoad];
+  self.title = @"Top Places";
   UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
   [spinner startAnimating];
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
@@ -47,21 +49,20 @@
     dispatch_async(dispatch_get_main_queue(), ^{
       [spinner stopAnimating];
       self.topPlaces = places;
-      self.title = @"Top Places";
     });
   });
   dispatch_release(downloader);
-  [super viewDidLoad];
 }
 
 //should the master view controller be hidden?
 - (BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+  
   return [self splitViewBarButtonItemViewController] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
 }
 
 //master view controller has been hidden. what should the barButtonItem do?
 - (void) splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc {
-  barButtonItem.title = self.title;
+  barButtonItem.title =  self.title;
   [self splitViewBarButtonItemViewController].splitViewBarButtonItem = barButtonItem;
 }
 

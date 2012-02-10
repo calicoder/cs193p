@@ -56,6 +56,28 @@
   self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
 }
 
+- (UIImage *)imageFromCacheOrFlickr {
+  //gets image from flickr if it does not exist
+  NSFileManager *manager = [[NSFileManager alloc] init];
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentsDirectory = [paths lastObject]; 
+  NSString *path = [NSString stringWithFormat:@"%@/%@.jpg", documentsDirectory, [self.photo valueForKey:@"id"]]; 
+  UIImage *image = nil;
+  
+  if ([manager fileExistsAtPath:path]) {
+    //get file and set image
+    image = [UIImage imageWithData:[manager contentsAtPath:path]];
+  }
+  else {
+    //download file, save file, and set image
+    NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
+    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];        
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    [imageData writeToFile:path atomically:NO];
+  }
+  return image;
+}
+
 - (void) getAndSetImage {
   UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
   [spinner startAnimating];  
@@ -65,13 +87,11 @@
   
   dispatch_queue_t downloadQueue = dispatch_queue_create("imageDownloader", NULL);
   dispatch_async(downloadQueue, ^{
-    NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];  
-    //save image
-    
     dispatch_async(dispatch_get_main_queue(), ^{
       [spinner stopAnimating];
-      self.imageView.image = image;
+      [toolbarItems removeLastObject];
+      self.toolbar.items = toolbarItems;
+      self.imageView.image = [self imageFromCacheOrFlickr];
       [self setInitialZoom];
     });
   });
@@ -80,10 +100,10 @@
 
 - (void) setPhoto:(NSDictionary *)photo {
   if(_photo !=photo) {
-  _photo = photo;
-  self.title = [photo valueForKey:@"title"];
-  self.imageTitle.text = [self.photo objectForKey:@"title"]; 
-  [self getAndSetImage];
+    _photo = photo;
+    self.title = [photo valueForKey:@"title"];
+    self.imageTitle.text = [self.photo objectForKey:@"title"]; 
+    [self getAndSetImage];
   }
 }
 
@@ -98,7 +118,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-  return true;
+  return YES;
 }
 
 - (void)viewDidUnload {
